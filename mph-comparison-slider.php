@@ -1,10 +1,16 @@
 <?php
 /**
  * Plugin Name: MPH Comparison Slider
- * Description: Adds a draggable Design-vs-HTML comparison slider to portfolio projects. Upload a design screenshot and a build (HTML) screenshot; drag to reveal one over the other.
- * Version: 1.0.0
- * Author: Mike Asuncion
+ * Plugin URI:  https://github.com/mike-asuncion/mph-comparison-slider
+ * Description: Adds a draggable design-vs-HTML comparison slider to portfolio projects. Upload a design screenshot (Figma, Sketch, XD, etc.) and a build (HTML) screenshot, then drag to reveal one over the other. Includes browser-chrome and design-tool toolbar decorations, side label badges, and vanilla-JS pointer/touch/keyboard interaction.
+ * Version:     1.0.2
+ * Author:      Mike Asuncion
+ * Author URI:  https://mikeasuncion.ph
+ * License:     GPL-2.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: mph-cs
+ *
+ * Co-developed with Claude Code (Anthropic Claude Opus 4.7).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
