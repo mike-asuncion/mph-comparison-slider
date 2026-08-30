@@ -351,6 +351,29 @@
         min-height: 360px;
         aspect-ratio: 4 / 5;
     }
+
+    /* Mobile: when fit-contain is set, show the FULL image (no cropping) */
+    .mph-cs--fit-contain .mph-cs__img {
+        object-fit: contain;
+        object-position: top center;
+    }
+    .mph-cs--fit-contain .mph-cs__layer--front .mph-cs__canvas {
+        background: #1a1a1a;
+    }
+    .mph-cs--fit-contain.mph-cs--hero .mph-cs__stage {
+        aspect-ratio: auto;
+        min-height: 70vh;
+    }
+}
+
+/* Mobile portrait: size the stage exactly to the design image's aspect ratio
+   so the slider hugs the content with no empty space below. Landscape keeps the
+   70vh behavior from the block above. */
+@media (max-width: 768px) and (orientation: portrait) {
+    .mph-cs--fit-contain.mph-cs--hero .mph-cs__stage {
+        aspect-ratio: var(--mph-cs-img-ratio, 16 / 11);
+        min-height: 0;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

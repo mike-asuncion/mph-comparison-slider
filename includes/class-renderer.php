@@ -39,6 +39,7 @@ class MPH_CS_Renderer {
             'link'         => true,    // navigate on tap (only when not dragging)
             'browser_url'  => '',      // override URL pill text
             'design_label' => '',      // override design-tool label
+            'fit'          => 'cover', // cover | contain — contain shows the FULL image (mobile only)
         );
         $args = wp_parse_args( $args, $defaults );
 
@@ -49,6 +50,15 @@ class MPH_CS_Renderer {
         $design_url = wp_get_attachment_image_url( $design_id, 'large' );
         if ( ! $html_url || ! $design_url ) {
             return '';
+        }
+
+        // Capture design image aspect ratio so mobile-portrait stage can fit it (no dead space).
+        $aspect_style = '';
+        if ( $args['fit'] === 'contain' ) {
+            $design_meta = wp_get_attachment_metadata( $design_id );
+            if ( ! empty( $design_meta['width'] ) && ! empty( $design_meta['height'] ) ) {
+                $aspect_style = '--mph-cs-img-ratio:' . (int) $design_meta['width'] . '/' . (int) $design_meta['height'] . ';';
+            }
         }
 
         $browser_url  = self::resolve_browser_url( $post_id, $args['browser_url'] );
@@ -68,8 +78,9 @@ class MPH_CS_Renderer {
         ob_start();
         ?>
         <div
-            class="mph-cs mph-cs--<?php echo esc_attr( $args['variant'] ); ?>"
+            class="mph-cs mph-cs--<?php echo esc_attr( $args['variant'] ); ?><?php echo $args['fit'] === 'contain' ? ' mph-cs--fit-contain' : ''; ?>"
             data-mph-cs
+            <?php if ( $aspect_style ) : ?>style="<?php echo esc_attr( $aspect_style ); ?>"<?php endif; ?>
             <?php if ( $permalink ) : ?>data-permalink="<?php echo esc_attr( $permalink ); ?>"<?php endif; ?>
         >
             <div class="mph-cs__stage">
